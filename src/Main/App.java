@@ -91,15 +91,30 @@ public class App {
 			}
 
 			case 6 -> {
-
+				System.out.print("ID: ");
+				int id = scanner.nextInt();
+				Avdeling avd = avdelingDAO.finnAvdelingMedId(id);
+				if (avd != null)
+					avd.skrivUt();
+				else
+					System.out.println("Ikke funnet.");
 			}
 
 			case 7 -> {
-
+				System.out.print("Ansatt ID: ");
+				int id = scanner.nextInt();
+				//scanner.nextLine();
+				System.out.print("Ny avdeling ID: ");
+				int avdId = scanner.nextInt();
+				ansattDAO.byttAvdeling(id, avdId);
 			}
 
 			case 8 -> {
-
+				System.out.print("Navn på ny avdeling: ");
+				String avdNavn = scanner.nextLine();
+				System.out.print("ID på ansatt som skal bli leder: ");
+				int avdId = scanner.nextInt();
+				avdelingDAO.lagreNyAvdelingMedSjef(avdNavn, avdId);
 			}
 
 			case 9 -> {

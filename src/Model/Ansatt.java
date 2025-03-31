@@ -42,6 +42,14 @@ public class Ansatt {
     	return manedslonn;
     }
 
+    public void setAvdeling(Avdeling avdeling) {
+    	this.avdeling = avdeling;
+    }
+    
+    public Avdeling getAvdeling() {
+    	return avdeling;
+    }
+    
     public void setStilling(String stilling) {
     	this.stilling = stilling;
     }
@@ -57,7 +65,14 @@ public class Ansatt {
     public String getBrukernavn() { 
     	return brukernavn; 
     }
+
+    public String getFornavn() { 
+    	return fornavn; 
+    }
     
+    public String getEtternavn() { 
+    	return etternavn; 
+    }
     public void skrivUt() {
         System.out.printf("Ansatt #%d: %s %s (%s), Stilling: %s, Lønn: %.2f%n", id, fornavn, etternavn, brukernavn, stilling, manedslonn);
     }
