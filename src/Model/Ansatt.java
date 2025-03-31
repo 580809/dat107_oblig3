@@ -51,7 +51,7 @@ public class Ansatt {
     }
     
     public int getId() { 
-    	return id; 
+    	return id;
     }
     
     public String getBrukernavn() { 
