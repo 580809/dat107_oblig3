@@ -74,7 +74,7 @@ public class Ansatt {
     	return etternavn; 
     }
     public void skrivUt() {
-        System.out.printf("Ansatt #%d: %s %s (%s), Stilling: %s, Lønn: %.2f%n", id, fornavn, etternavn, brukernavn, stilling, manedslonn);
+        System.out.printf("Ansatt #%d: %s %s (%s), Stilling: %s, Lønn: %.2f, Avd #%d %s%n", id, fornavn, etternavn, brukernavn, stilling, manedslonn, avdeling.getId(), avdeling.getNavn());
     }
 }
 
