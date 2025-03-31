@@ -3,21 +3,24 @@ package Model;
 import jakarta.persistence.*;
 
 @Entity
-@Table(schema = "oblig3")
+@Table(schema = "oblig3", name = "AnsattProsjekt")
 public class AnsattProsjekt {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+	
+    @EmbeddedId
+    private AnsattProsjektId id;
+    
     @ManyToOne
-    @JoinColumn(name = "ansatt_id")
+    @JoinColumn(name = "ansattProsjekt_id", referencedColumnName = "id", insertable = false, updatable = false)
     private Ansatt ansatt;
 
     @ManyToOne
-    @JoinColumn(name = "prosjekt_id")
+    @JoinColumn(name = "prosjekt_id", referencedColumnName = "prosjekt_id", insertable = false, updatable = false)
     private Prosjekt prosjekt;
 
+    @Column(name = "rolle")
     private String rolle;
+
+    @Column(name = "arbeidstimer")
     private int arbeidstimer;
 
     public AnsattProsjekt() {}

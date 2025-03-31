@@ -8,6 +8,9 @@
 
 		<class>Model.Ansatt</class>
 		<class>Model.Avdeling</class>
+		<class>Model.Prosjekt</class>
+		<class>Model.AnsattProsjekt</class>
+
 		
 		<properties>
 		    <!--  Generelle JPA properties -->

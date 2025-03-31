@@ -15,6 +15,8 @@ public class App {
 		EntityManager em = emf.createEntityManager();
 		AnsattDao ansattDAO = new AnsattDao(em);
 		AvdelingDao avdelingDAO = new AvdelingDao(em);
+		ProsjektDao prosjektDAO = new ProsjektDao(em);
+		AnsattProsjektDao ansattProsjektDAO = new AnsattProsjektDao(em);
 
 		Scanner scanner = new Scanner(System.in);
 		while (true) {
@@ -27,7 +29,11 @@ public class App {
 			System.out.println("6. Søk avdeling med ID");
 			System.out.println("7. Flytt ansatt til annen avdeling");
 			System.out.println("8. Opprett ny avdeling");
-			System.out.println("9. Avslutt");
+			System.out.println("9. Legg til nytt prosjekt");
+			System.out.println("10. Registrer prosjektdeltagelse");
+			System.out.println("11. Føre timer for en ansatt");
+			System.out.println("12. Prosjektinformasjon");
+			System.out.println("13. Avslutt");
 			System.out.print("Velg: ");
 			int valg = scanner.nextInt();
 			scanner.nextLine();
@@ -116,8 +122,65 @@ public class App {
 				int avdId = scanner.nextInt();
 				avdelingDAO.lagreNyAvdelingMedSjef(avdNavn, avdId);
 			}
-
+			
 			case 9 -> {
+			    System.out.print("Navn på prosjekt: ");
+			    String navn = scanner.nextLine();
+			    System.out.print("Beskrivelse: ");
+			    String beskrivelse = scanner.nextLine();
+			    Prosjekt p = new Prosjekt(navn, beskrivelse);
+			    prosjektDAO.lagreProsjekt(p);
+			    System.out.println("Nytt prosjekt lagret.");
+			}
+			
+			case 10 -> {
+			    System.out.print("Ansatt ID: ");
+			    int ansattId = scanner.nextInt();
+			    System.out.print("Prosjekt ID: ");
+			    int prosjektId = scanner.nextInt();
+			    System.out.print("Rolle: ");
+			    String rolle = scanner.nextLine();
+			    System.out.print("Arbeidstimer: ");
+			    int arbeidstimer = scanner.nextInt();
+			    Ansatt ansatt = ansattDAO.finnAnsattMedId(ansattId);
+			    Prosjekt prosjekt = prosjektDAO.finnProsjektMedId(prosjektId);
+			    if (ansatt != null && prosjekt != null) {
+			    	ansattProsjektDAO.registrerDeltagelse(ansatt, prosjekt, rolle, arbeidstimer);
+			        System.out.println("Prosjektdeltagelse registrert.");
+			    } else {
+			        System.out.println("Ansatt eller prosjekt ikke funnet.");
+			    }
+			}
+			
+			case 11 -> {
+			    System.out.print("Ansatt ID: ");
+			    int ansattId = scanner.nextInt();
+			    System.out.print("Prosjekt ID: ");
+			    int prosjektId = scanner.nextInt();
+			    System.out.print("Nye arbeidstimer: ");
+			    int arbeidstimer = scanner.nextInt();
+			    Ansatt ansatt = ansattDAO.finnAnsattMedId(ansattId);
+			    Prosjekt prosjekt = prosjektDAO.finnProsjektMedId(prosjektId);
+			    if (ansatt != null && prosjekt != null) {
+			        ansattProsjektDAO.oppdaterTimer(ansatt, prosjekt, arbeidstimer);
+			        System.out.println("Timer oppdatert.");
+			    } else {
+			        System.out.println("Ansatt eller prosjekt ikke funnet.");
+			    }
+			}
+			
+			case 12 -> {
+			    System.out.print("Prosjekt ID: ");
+			    int prosjektId = scanner.nextInt();
+			    Prosjekt prosjekt = prosjektDAO.finnProsjektMedId(prosjektId);
+			    if (prosjekt != null) {
+			        prosjekt.skrivUt();
+			    } else {
+			        System.out.println("Prosjekt ikke funnet.");
+			    }
+			}
+
+			case 13 -> {
 				em.close();
 				emf.close();
 				return;
